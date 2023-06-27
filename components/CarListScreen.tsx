@@ -1,16 +1,12 @@
 import cars from "../cars.json";
 import { StyleSheet, FlatList } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Dialog, Portal, Button, RadioButton } from "react-native-paper";
+import { Dialog, Portal, RadioButton } from "react-native-paper";
 import { useState } from "react";
 
-function Item({ car }: any) {
+function Item({ car, onClick }: any) {
   return (
-    <div
-      onClick={() => navigation.navigate("ТС", { name: car.name })}
-      key={car.name}
-      style={styles.item}
-    >
+    <div style={styles.item} onClick={onClick}>
       <div style={styles.name}>{car.name}</div>
       <div style={styles.driver_name}>{car.driver_name}</div>
       <div style={styles.category}>{car.category}</div>
@@ -43,7 +39,12 @@ export default function CarListScreen({ navigation }: any) {
             ? cars.filter((c) => c.category === category)
             : cars
         }
-        renderItem={({ item }) => <Item car={item} />}
+        renderItem={({ item }) => (
+          <Item
+            onClick={() => navigation.navigate("ТС", { name: item.name })}
+            car={item}
+          />
+        )}
         keyExtractor={(c) => c.name}
       >
         {cars.map((c) => (
