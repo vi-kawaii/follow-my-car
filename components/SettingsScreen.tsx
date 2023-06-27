@@ -2,7 +2,7 @@ import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { RadioButton } from "react-native-paper";
 
-export default function SettingsScreen({ route, navigation }: any) {
+export default function SettingsScreen() {
   const [lang, setLang] = useState("ru");
   return (
     <>

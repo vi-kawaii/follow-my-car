@@ -9,22 +9,27 @@ import {
 } from "react-native";
 import { Dialog, Portal, RadioButton } from "react-native-paper";
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { Car } from "../types/Car";
 
-function Item({ car, onClick }: any) {
+type ItemProps = {
+  car: Car;
+};
+
+function Item({ car }: ItemProps) {
   return (
-    <TouchableOpacity style={styles.item} onPress={onClick}>
-      <View>
-        <Text style={styles.name}>{car.name}</Text>
-        <Text style={styles.driver_name}>{car.driver_name}</Text>
-        <Text style={styles.category}>{car.category}</Text>
-      </View>
-    </TouchableOpacity>
+    <View>
+      <Text style={styles.name}>{car.name}</Text>
+      <Text style={styles.driver_name}>{car.driver_name}</Text>
+      <Text style={styles.category}>{car.category}</Text>
+    </View>
   );
 }
 
-export default function CarListScreen({ navigation }: any) {
+export default function CarListScreen() {
   const [filters, setFilters] = useState(false);
   const [category, setCategory] = useState("Все");
+  const navigation = useNavigation();
 
   function hideFilters() {
     setFilters(false);
@@ -47,10 +52,12 @@ export default function CarListScreen({ navigation }: any) {
             : cars
         }
         renderItem={({ item }) => (
-          <Item
-            onClick={() => navigation.navigate("ТС", { item })}
-            car={item}
-          />
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => navigation.navigate("ТС", { item })}
+          >
+            <Item car={item} />
+          </TouchableOpacity>
         )}
         keyExtractor={(c) => c.name}
       >
