@@ -1,16 +1,24 @@
 import cars from "../cars.json";
-import { StyleSheet, FlatList } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import {
+  StyleSheet,
+  FlatList,
+  Text,
+  View,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 import { Dialog, Portal, RadioButton } from "react-native-paper";
 import { useState } from "react";
 
 function Item({ car, onClick }: any) {
   return (
-    <div style={styles.item} onClick={onClick}>
-      <div style={styles.name}>{car.name}</div>
-      <div style={styles.driver_name}>{car.driver_name}</div>
-      <div style={styles.category}>{car.category}</div>
-    </div>
+    <TouchableOpacity style={styles.item} onPress={onClick}>
+      <View>
+        <Text style={styles.name}>{car.name}</Text>
+        <Text style={styles.driver_name}>{car.driver_name}</Text>
+        <Text style={styles.category}>{car.category}</Text>
+      </View>
+    </TouchableOpacity>
   );
 }
 
@@ -28,10 +36,9 @@ export default function CarListScreen({ navigation }: any) {
 
   return (
     <>
-      <div style={styles.button} onClick={showFilters}>
-        <Ionicons name="list" size={25} color={"black"} />
-        Фильтр
-      </div>
+      <View style={styles.button}>
+        <Button title="Отфильтровать" onPress={showFilters} />
+      </View>
       <FlatList
         style={styles.container}
         data={
@@ -41,7 +48,7 @@ export default function CarListScreen({ navigation }: any) {
         }
         renderItem={({ item }) => (
           <Item
-            onClick={() => navigation.navigate("ТС", { name: item.name })}
+            onClick={() => navigation.navigate("ТС", { item })}
             car={item}
           />
         )}
@@ -76,7 +83,6 @@ const styles = StyleSheet.create({
   container: {
     paddingLeft: 18,
     paddingRight: 18,
-    fontFamily: "sans-serif",
   },
   item: {
     marginBottom: 18,
@@ -91,12 +97,7 @@ const styles = StyleSheet.create({
     color: "gray",
   },
   button: {
-    paddingTop: 18,
-    paddingBottom: 18,
-    paddingLeft: 18,
-    fontFamily: "sans-serif",
-    display: "flex",
-    alignItems: "center",
-    gap: 6,
+    paddingTop: 10,
+    paddingBottom: 10,
   },
 });

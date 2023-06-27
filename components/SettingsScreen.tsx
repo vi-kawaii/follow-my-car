@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { RadioButton } from "react-native-paper";
 
 export default function SettingsScreen({ route, navigation }: any) {
   const [lang, setLang] = useState("ru");
   return (
     <>
-      <div style={styles.title}>Язык</div>
+      <Text style={styles.title}>Язык</Text>
       <RadioButton.Group onValueChange={(value) => setLang(value)} value={lang}>
         <RadioButton.Item label="Русский" value="ru" />
         <RadioButton.Item label="English" value="en" />
@@ -18,7 +18,6 @@ export default function SettingsScreen({ route, navigation }: any) {
 const styles = StyleSheet.create({
   title: {
     paddingTop: 18,
-    fontFamily: "sans-serif",
     fontWeight: "bold",
     paddingLeft: 18,
     paddingBottom: 4,
